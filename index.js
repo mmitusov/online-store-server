@@ -1,20 +1,15 @@
+//'dotenv' is a zero-dependency module that loads environment variables from a .env file into process.env.
+//Thx to in we can now use '.env'
+require('dotenv').config() //
 const express = require('express')
-const {Sequelize} = require('sequelize') //Or we can use knex instead, 5432
-const sequelize = new Sequelize(
-    'store_db', //db_name
-    'postgres', //user_name
-    '0000', { //password
-        dialect: 'postgres',             
-        host: 'localhost'
-    }
-);
-module.exports = sequelize;
+const sequelize = require('./db')
+const db_models = require('./db_models/db_models')
 
 const app = express();
 
 const start = async() => {
     try {
-        await sequelize.authenticate();
+        await sequelize.authenticate(); //Using it to connect to DB
         await sequelize.sync();
     } catch (err) {
         console.log(err)
@@ -22,4 +17,4 @@ const start = async() => {
 }
 start()
 
-app.listen(process.env.PORT || 3000, () => console.log(`Server is running on the port ${process.env.PORT}`))
+app.listen(process.env.PORT || 5001, () => console.log(`Server is running on the port ${process.env.PORT}`))

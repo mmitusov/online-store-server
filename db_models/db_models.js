@@ -1,6 +1,7 @@
-const {DataTypes} = ('sequelize')
-const sequelize = require('../index.js');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db');
 
+//Creating tables
 const User = sequelize.define('user', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     email: {type: DataTypes.STRING, unique: true},
@@ -45,4 +46,50 @@ const DeviceInfo = sequelize.define('device_info', {
     description: {type: DataTypes.STRING, allowNull: false}
 })
 
+//Type & Brand intermediary table
+const TypeBrand = sequelize.define('type_brand', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
+})
+
 //Below we're describing how models are connected to each other
+User.hasOne(Basket);
+Basket.belongsTo(User);
+
+User.hasMany(Rating);
+Rating.belongsTo(User);
+
+Basket.hasMany(BasketDevice);
+BasketDevice.belongsTo(Basket);
+
+Type.hasMany(Device);
+Device.belongsTo(Type);
+
+Brand.hasMany(Device);
+Device.belongsTo(Brand);
+
+Device.hasMany(Rating);
+Rating.belongsTo(Device);
+
+Device.hasMany(BasketDevice);
+BasketDevice.belongsTo(Device);
+
+Device.hasMany(DeviceInfo);
+DeviceInfo.belongsTo(Device);
+
+//Since Type & Brand have many-to-many realations we also need to create intermediary table to hold thei relations
+Type.belongsToMany(Brand, {through: TypeBrand});
+Brand.belongsToMany(Type, {through: TypeBrand});
+
+//Exporting
+module.exports = {
+    User,
+    Basket,
+    BasketDevice,
+    Device,
+    Type,
+    Brand,
+    Rating,
+    DeviceInfo,
+    TypeBrand,
+    User
+}
