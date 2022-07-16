@@ -1,6 +1,4 @@
-//'dotenv' is a zero-dependency module that loads environment variables from a .env file into process.env.
-//Thx to in we can now use '.env'
-require('dotenv').config() //
+require('dotenv').config()
 const express = require('express')
 const sequelize = require('./db')
 const db_models = require('./db_models/db_models')
