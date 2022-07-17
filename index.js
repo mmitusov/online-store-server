@@ -4,11 +4,14 @@ const cors = require('cors')
 const sequelize = require('./db')
 const db_models = require('./db_models/db_models')
 const routes = require('./routes/index')
+const errorHandler = require('./middleware/errorHandlingMiddleware')
 
 
 const app = express();
 app.use(cors())
-app.use('/api', routes) //Global midleware??? We've created midleware "routes" and to be able to use it we call app.use('/api', routes)
+app.use('/api', routes)
+//Middleware работающий с ошибками должен обязательно идти в самом конце, так как он замыкающий
+app.use(errorHandler)
 
 const start = async() => {
     try {
