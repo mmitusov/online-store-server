@@ -1,16 +1,14 @@
 require('dotenv').config()
 const express = require('express')
+const cors = require('cors')
 const sequelize = require('./db')
 const db_models = require('./db_models/db_models')
-const cors = require('cors')
+const routes = require('./routes/index')
+
 
 const app = express();
 app.use(cors())
-//app.use(express.json()); - Latest version of exressJS now comes with Body-Parser, so we don't need this!
-
-app.get('/', (req, res) => {
-    res.status(200).json({message: 'Working'})
-})
+app.use('/api', routes) //Global midleware??? We've created midleware "routes" and to be able to use it we call app.use('/api', routes)
 
 const start = async() => {
     try {
