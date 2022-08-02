@@ -1,4 +1,4 @@
-# Backend notes & tips 
+# Backend notes & tips
 
 Since DB is going to be complex, before setting up backend APIs, first I need to do is design and implenment DB structure, as well as conect ot to our backend. And then build servrside based on its logic. In that case I'll have better understanding of how better to implement API later on. Good tool for building visual scemas of future DB is - https://app.diagrams.net.
 
