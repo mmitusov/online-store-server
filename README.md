@@ -17,4 +17,5 @@ I was choosing between Sequelize and Knex. But since Sequelize is more capble on
 ### Choosing PostgreSQL GUI
 For a PostgreSQL GUI I was choosing between 'pgAdmin' or 'PSequel' client. 'pgAdmin' is great for its feature-richness. However, I found its UI clumsy and complicated. So I've desided to use PSequel instesd. 
 P.S. For some reason PSequel do not work with latest version of PostgreSQL. So, I'm going to use pgAdmin4 instead.
-Also worth mentioning that unlike in pgAdmin3 - in pgAdmin4 you have to manually connect to a running postgres server, since there is no pre-built server skeleton. So, when you enter a DB server for the first time there's gonna be no DB under "Servers" root folder (it's going to be completely empty).
+
+Also worth mentioning that unlike in pgAdmin3 - in pgAdmin4 you have to manually connect to a running postgres server, since there is no pre-built server skeleton. So, when you enter a DB server for the first time there's gonna be no DB under "Servers" root folder (it's going to be completely empty). Solution on StackOverflow: [Databases in psql Don't Show up in PgAdmin4](https://stackoverflow.com/questions/61576670/databases-in-psql-dont-show-up-in-pgadmin4).
