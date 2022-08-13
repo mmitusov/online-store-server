@@ -9,7 +9,7 @@ const errorHandler = require('./middleware/errorHandlingMiddleware')
 
 const app = express();
 app.use(cors())
-app.use('/api', routes)
+app.use('/api', routes) //app.use(url по которому обрабатывается роутер, сам роутер)
 //Middleware работающий с ошибками должен обязательно идти в самом конце, так как он замыкающий
 app.use(errorHandler)
 

@@ -11,7 +11,7 @@ module.exports = new Sequelize(
 
 // //If you dont want to use ".env" file, you can just fill everything by hand. 
 // //+You can use classic method of exporting modules
-// /*Also, if you use this method - you don't need nither to configure/create ".env" file 
+// /*Also, if you use this method - you don't need nether to configure/create ".env" file 
 // and thus nor 'require('dotenv').config()' in index.js*/
 
 // const {Sequelize} = require('sequelize')
