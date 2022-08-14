@@ -6,6 +6,9 @@ To avoid manual implementation of SQL database, I'm going to use Sequelize to co
 
 Also, while setting up connection to our DB I mooved connection points to the separate file: db.js. Addinionaly file '.env' was implemented. It allows us to set envarimentle variables to our liking in a sepparate file, so we can use them later on in different parts of our code. However, this is not an obligatory part and we could have built our app without '.env'. To be able to use '.env' file we need to install 'dotenv' dependancy and import it into index.js file (require('dotenv').config()). 'dotenv' is a zero-dependency module that loads environment variables from a '.env' file into process.env.
 
+Package description:
+"express-fileupload" - Simple express middleware for uploading files
+
 **Following statment is false:** app.use(express.json()); - Latest version of exressJS now comes with Body-Parser, so we don't need this! Без этого мы не может запарсить инфу с тела запроса: const {name} = req.body!!!
 
 ### Choosing Node.js ORM tool for Postgres
