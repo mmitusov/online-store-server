@@ -9,7 +9,7 @@ const errorHandler = require('./middleware/errorHandlingMiddleware')
 
 const app = express();
 app.use(cors())
-app.use(express.json()); //Без этого мы не может запарсить инфу с запроса: const {name} = req.body!!!
+app.use(express.json()); //Без этого мы не может запарсить инфу с тела запроса: const {name} = req.body!!!
 app.use('/api', routes) //app.use(url по которому обрабатывается роутер, сам роутер)
 app.use(errorHandler) //Middleware работающий с ошибками должен обязательно идти в самом конце, так как он замыкающий
 
