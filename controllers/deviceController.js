@@ -8,11 +8,11 @@ class DeviceController {
         try {
             const {name, price, brandId, typeId, info} = req.body //Получаем данные из тела запроса
             const {img} = req.files //У каждого устройства должна имется картинка. Также получаем ее из запроса, однако уже не из поля тела (body), а из поля files
-            let fileName = uuid.v4() + '.jpg' //After we get img we need to generate unique name for it, so we can get this img later by its name. v4 function generates unique id
+            let fileName = uuid.v4() + '.jpg' //After we got img we need to generate unique name for it, so we can get this img later by its name. v4 function generates unique id
             img.mv(path.resolve(__dirname, '..', 'static', fileName)) //После получения файла используем функцию .mv для перемещения нового файла с заданным именем в папку static. 
-            //P.S. '.resolve' - адаптирует указанный путь к операционной системе. После перемещения файла, теперь мы можем создать в нашей DB новый Device
+            //P.S. '.resolve' - адаптирует указанный путь к операционной системе. После перемещения файла, теперь мы можем использовать его и создать в нашей DB новый Device
     
-            const device = await Device.create({name, price, brandId, typeId, img: fileName}) //Картинкой передаем не сам файл, а его название; Рейтинг не указываем так как по дефолту он = 0
+            const device = await Device.create({name, price, brandId, typeId, img: fileName}) //Картинкой передаем не сам файл, а его название, что было сгенерировано ранее; Рейтинг не указываем так как по дефолту он = 0
             return res.json(device)
         } catch (err) {
             next(ApiError.badRequest(err.message))

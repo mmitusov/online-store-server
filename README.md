@@ -1,4 +1,6 @@
 # Backend notes & tips
+**Package description:**
+"express-fileupload" - Simple express middleware for uploading files
 
 Since DB is going to be complex, before setting up backend APIs, first I need to do is design and implenment DB structure, as well as conect it to our backend. And than build servrside based on its logic. In that case I'll have better understanding of how better to implement APIs later on. Good tool for building visual scemas of future DB is - https://app.diagrams.net.
 
@@ -6,10 +8,11 @@ To avoid manual implementation of SQL database, I'm going to use Sequelize to co
 
 Also, while setting up connection to our DB I mooved connection points to the separate file: db.js. Addinionaly file '.env' was implemented. It allows us to set envarimentle variables to our liking in a sepparate file, so we can use them later on in different parts of our code. However, this is not an obligatory part and we could have built our app without '.env'. To be able to use '.env' file we need to install 'dotenv' dependancy and import it into index.js file (require('dotenv').config()). 'dotenv' is a zero-dependency module that loads environment variables from a '.env' file into process.env.
 
-Package description:
-"express-fileupload" - Simple express middleware for uploading files
+I was told that Latest version of exressJS now comes with Body-Parser. However without app.use(express.json()) I was't able to parse any data. Без этого мы не может запарсить инфу с тела запроса: const {name} = req.body.
 
-**Following statment is false:** app.use(express.json()); - Latest version of exressJS now comes with Body-Parser, so we don't need this! Без этого мы не может запарсить инфу с тела запроса: const {name} = req.body!!!
+После создания моделей базы данных, я приступил к написанию функциональных api маршрутов. При чем для того чтобы все держать в чистоте и для разделения логики, я вывел api маршруты из корневого index.js к папке routes. А от нее каждый отдельный маршурт, где и хранится функциональная логика, уже к папке controllers. Именно в этой папке и прописана логика взаимодействия клиента с DB. При чем прописывая логику маршрутов, также паралельно нужно не забывать тестировать их работоспособность, пока код еще не стал слишком комплексным. Заметки по тому как работает каждый контроллер, я добавил в файл самого контроллера.
+
+Далее, для удобства, был создан файл ApiError и middleware для него, чтобы при необходимости нам легче было бы обрабатывать ошибки в любом из других файлов.
 
 ### Choosing Node.js ORM tool for Postgres
 I was choosing between Sequelize and Knex. But since Sequelize is more capble one, it became my choice.
