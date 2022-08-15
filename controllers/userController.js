@@ -8,7 +8,7 @@ class UserController {
         
     }
     async check(req, res, next) {
-        const {id} = req.query
+        const {id} = req.query //.query означает что мы получаем информацию из строки запроса
         if (!id) {
             return next(ApiError.badRequest('No given ID'))
         }
