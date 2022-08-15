@@ -4,9 +4,11 @@
 
 Since DB is going to be complex, before setting up backend APIs, first I need to do is design and implenment DB structure, as well as conect it to our backend. And than build servrside based on its logic. In that case I'll have better understanding of how better to implement APIs later on. Good tool for building visual scemas of future DB is - https://app.diagrams.net.
 
-To avoid manual implementation of SQL database, I'm going to use Sequelize to connect backend to the DB, create  table bluepint\their relations on the server side using JS and then parse their logic to the DB to create real one's (tables).
+To avoid manual implementation of SQL database, I'm going to use Sequelize to connect backend to the DB, create  table bluepint\their relations on the server side using JS and then parse their logic to the DB to create real one's (tables). All code for that matter I mooved to the db_model folder.
 
 Also, while setting up connection to our DB I mooved connection points to the separate file: db.js. Addinionaly file '.env' was implemented. It allows us to set envarimentle variables to our liking in a sepparate file, so we can use them later on in different parts of our code. However, this is not an obligatory part and we could have built our app without '.env'. To be able to use '.env' file we need to install 'dotenv' dependancy and import it into index.js file (require('dotenv').config()). 'dotenv' is a zero-dependency module that loads environment variables from a '.env' file into process.env.
+
+All needed 'kyes' for connection to our DB I store in db.js. I mooved it here from index.js to make code look cleaner.
 
 I was told that Latest version of exressJS now comes with Body-Parser. However without app.use(express.json()) I was't able to parse any data. Без этого мы не может запарсить инфу с тела запроса: const {name} = req.body.
 
