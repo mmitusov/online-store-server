@@ -64,7 +64,7 @@ class DeviceController {
         )
         return res.json(device)
     }
-} 
+}
 
 module.exports = new DeviceController()
 //Exporting new object created from class above
