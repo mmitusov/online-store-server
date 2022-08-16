@@ -11,7 +11,8 @@ class DeviceController {
             let fileName = uuid.v4() + '.jpg' //After we got img we need to generate unique name for it, so we can get this img later by its name. v4 function generates unique id
             img.mv(path.resolve(__dirname, '..', 'static', fileName)) //После получения файла используем функцию .mv для перемещения нового файла с заданным именем в папку static. 
             //P.S. '.resolve' - адаптирует указанный путь к операционной системе. После перемещения файла, теперь мы можем использовать его и создать в нашей DB новый Device
-            
+            const device = await Device.create({name, price, brandId, typeId, img: fileName}) //Картинкой передаем не сам файл, а его название, что было сгенерировано ранее; Рейтинг не указываем так как по дефолту он = 0
+
             //Для ототбражения описания товаров на фронте, сперва нам нужно перегнать описание из формата объкта (с сервера) в строку
             if (info) {
                 info = JSON.parse(info)
@@ -22,9 +23,7 @@ class DeviceController {
                         deviceId: device.id
                     })
                 )
-            }
-
-            const device = await Device.create({name, price, brandId, typeId, img: fileName}) //Картинкой передаем не сам файл, а его название, что было сгенерировано ранее; Рейтинг не указываем так как по дефолту он = 0
+            }            
             return res.json(device)
         } catch (err) {
             next(ApiError.badRequest(err.message))
@@ -37,7 +36,7 @@ class DeviceController {
         page = page || 1
         let offset = page * limit - limit
 
-        //Ч тобы посчитать кол-во отображенных товаров на фронте, нам нужно знать общее количество товаров которое к нам вернется по запросу. Для этого мы будем использовать метод .findAndCountAll (для пагинации)
+        //Чтобы посчитать кол-во отображенных товаров на фронте, нам нужно знать общее количество товаров которое к нам вернется по запросу. Для этого мы будем использовать метод .findAndCountAll (для пагинации)
         let device; //If we use 'const' it would result in error, since 'const' always must be equal to something.
         if (!brandId && !typeId) {
             device = await Device.findAndCountAll({limit, offset})
@@ -54,10 +53,18 @@ class DeviceController {
         return res.json(device)
     }
 
+    //Возвращаем одно устройство
     async getOne(req, res) {
-        
+        const {id} = req.params //params берем из userRouter.js
+        const device = await Device.findOne(
+            {
+                where: {id}, 
+                include: [{model: DeviceInfo, as: 'info'}] //Импортированный из модели таблицы
+            }
+        )
+        return res.json(device)
     }
-}
+} 
 
 module.exports = new DeviceController()
 //Exporting new object created from class above
