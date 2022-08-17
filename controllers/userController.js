@@ -1,4 +1,4 @@
-const {User, Basket} = require('../db_models/db_models') //Импортируем модель нашей таблицы
+const {User, Basket} = require('../db_models/db_models') //Импортируем модель нашей таблицы 
 const ApiError = require('../error/apiError')
 const bcrypt = require('bcrypt') //For hashing data
 const jwt = require('jsonwebtoken') //For genereting JWT tokens
