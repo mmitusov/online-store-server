@@ -4,7 +4,7 @@ const {Brand} = require('../db_models/db_models') //Импортируем мо�
 class BrandController {
     async create(req, res) {
         const {name} = req.body
-        const brand = await Brand.create({name}) //Создаем новую график в DB по парамертам из запроса
+        const brand = await Brand.create({name}) //Создаем новую графу в DB по парамертам из запроса
         return res.json(brand)
     }
     async getAll(req, res) {

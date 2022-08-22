@@ -41,10 +41,12 @@ class UserController {
         const token = generateToken(user.id, user.email, user.role)
         return res.json(token)
     } 
-    
+     
     async check(req, res, next) {
-        
-
+        //Основным пердназначением метода check являеся генерация нового токена и отправки его на клиент
+        //Так как если клиент будет постоянно пользоватся аккаунтом токен у него будет постоянно перезаписыватся
+        const token = generateToken(req.user.id, req.user.email, req.user.role)
+        res.json({message: 'All good !'}) 
         /*TESTING const {id} = req.query //.query означает что мы получаем информацию из строки запроса
         if (!id) {
             return next(ApiError.badRequest('No given ID'))

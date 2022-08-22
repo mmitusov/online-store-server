@@ -5,7 +5,8 @@ const authMiddleware = require('../middleware/authMiddleware') //Импорти�
 
 router.post('/registration', userController.registration)
 router.post('/login', userController.login)
-router.get('/auth', authMiddleware, userController.check) //И добывляем authMiddleware в get запрос вторым параметром, который будет проверять пользователя на авторизованость
+router.get('/auth', authMiddleware, userController.check) //И добавляем authMiddleware в get запрос вторым параметром, который будет проверять пользователя на авторизованость
+//Идя по маршруту '/auth', мы сперва пользуемся созданым middleware, а уже после переходим к userController.check
 
 //This is how we've tested this path before - we've created our controllers paths
 //We've mooved our controller to a sepatate folder so we can keep current file clean and readble
