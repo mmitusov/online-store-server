@@ -13,7 +13,7 @@ const generateToken = (id, email, role) => { //To create JWT token, below we pas
 
 class UserController {
     async registration(req, res, next) {
-        const {email, password, role} = req.body //Деление на роли (админ/пользователь) пока не внедряем, но для наглядности добавим. By default in db_models 'role': 'USER'
+        const {email, password, role} = req.body //By default in db_models 'role': 'USER'
         if (!email || !password) { //If data was not given - throw err. For now we'll just skip validation managment part to save some time
             return next(ApiError.badRequest('Please enter your email and password'))
         }
@@ -38,15 +38,16 @@ class UserController {
         if (!hashPassword) {
             return next(ApiError.badRequest('Incorrect login, there no such user'))
         }
-        const token = generateToken(user.id, user.email, user.role)
+        const token = generateToken(user.id, user.email, user.role) //P.S. Мы можем разкодировать полученный токен при помощи 'const decoded = jwt.verify(token, process.env.SECRET_KEY)'
         return res.json(token)
-    } 
+    }
      
     async check(req, res, next) {
         //Основным пердназначением метода check являеся генерация нового токена и отправки его на клиент
-        //Так как если клиент будет постоянно пользоватся аккаунтом токен у него будет постоянно перезаписыватся
+        //Так как если клиент будет постоянно пользоватся аккаунтом, то токен у него будет постоянно перезаписыватся
         const token = generateToken(req.user.id, req.user.email, req.user.role)
-        res.json({message: 'All good !'}) 
+        return res.json({token})
+        
         /*TESTING const {id} = req.query //.query означает что мы получаем информацию из строки запроса
         if (!id) {
             return next(ApiError.badRequest('No given ID'))

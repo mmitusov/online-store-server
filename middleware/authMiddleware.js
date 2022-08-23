@@ -10,7 +10,7 @@ module.exports = function (req, res, next) {
         if (!token) {
             return res.status(401).json({message: `Token is not found. You're not athorized`})
         }
-        const decoded = jwt.verify(token, process.env.SECRET_KEY) //Далее мы должны разкодировать полученный токен и при помощи .verify проверить его на валидность
+        const decoded = jwt.verify(token, process.env.SECRET_KEY) //Далее мы должны разкодировать полученный токен (по образу как на сайте по разкодировке JWT). В итоге мы получим объект с данными
         req.user = decoded //К реквесту (например в поле юзер) добавим данные которые мы вытащили. И во всех функциях этот юзер будет доступен
         next() //С помощью next вызываем следующий в цепочке middleware
     } catch (err) {
