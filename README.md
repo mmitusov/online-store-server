@@ -16,7 +16,11 @@ I was told that Latest version of exressJS now comes with Body-Parser. However w
 
 Далее, для удобства, был создан файл ApiError и middleware для него, чтобы при необходимости нам легче было бы обрабатывать ошибки в любом из других файлов.
 
+Для разкодирования готового JWT токена, был создан authMiddleware
+
 При работе над аунтефикацией, работоспособность созданого JWT токена можно проверить на [этом ресурсе](https://jwt.io).
+
+В итоге был созданн полноценный JWT API. Наш сервер может раздавать статику, мы можем авторизовываться, и добавлять различные товары в нашу БД, хотя можно было бы добавить еще и удаление товаров.
 
 ### Choosing Node.js ORM tool for Postgres
 I was choosing between Sequelize and Knex. But since Sequelize is more capble one, it became my choice.
