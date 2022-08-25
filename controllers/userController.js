@@ -47,12 +47,6 @@ class UserController {
         //Так как если клиент будет постоянно пользоватся аккаунтом, то токен у него будет постоянно перезаписыватся
         const token = generateToken(req.user.id, req.user.email, req.user.role)
         return res.json({token})
-        
-        /*TESTING const {id} = req.query //.query означает что мы получаем информацию из строки запроса
-        if (!id) {
-            return next(ApiError.badRequest('No given ID'))
-        }
-        res.json({id})*/
     }    
 }
 

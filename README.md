@@ -31,6 +31,8 @@ I was choosing between Sequelize and Knex. But since Sequelize is more capble on
 ### Choosing PostgreSQL GUI
 Не забываем, что любые запросы к базе данных являютяся асинхронными
 
+TESTING const {id} = req.query //.query означает что мы получаем информацию из строки запроса. P.S. req.body - тела запроса
+
 For a PostgreSQL GUI I was choosing between 'pgAdmin' or 'PSequel' client. 'pgAdmin' is great for its feature-richness. However, I found its UI clumsy and complicated. So I've desided to use PSequel instesd. 
 P.S. For some reason PSequel do not work with latest version of PostgreSQL. So, I'm going to use pgAdmin4 instead.
 
