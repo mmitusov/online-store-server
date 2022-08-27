@@ -3,7 +3,7 @@
 //Основным пердназначением метода check являеся генерация нового токена и отправки его на клиент
 //Так как если клиент будет постоянно пользоватся аккаунтом, то токен у него будет постоянно перезаписыватся
 //const token = generateToken(req.user.id, req.user.email, req.user.role)
-const jwt = require('jsonwebtoken') //Для разкодировки токена
+const jwt = require('jsonwebtoken') //Для разкодировки токена 
 
 module.exports = function (req, res, next) {
     if (req.method === "OPTIONS") {
