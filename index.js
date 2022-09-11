@@ -10,7 +10,7 @@ const path = require('path') //We need it for 'express.static' below
 
 const app = express();
 app.use(cors());
-app.use(express.json()); //Без этого мы не может запарсить инфу с тела запроса: const {name} = req.body!!!
+app.use(express.json()); //Без этого мы не может запарсить инфу с тела запроса: const {name} = req.body!!! Експересс по умолчанию не может преобразовать json формат который мы отправляем в req
 app.use(express.static(path.resolve(__dirname, 'static'))); //Теперь мы можем обращатся по названию ко всем файлам которые лежат в папку static и получать их
 app.use(fileUpload({})); //Simple express middleware. Needed for uploading files (e.g. imgages). Used in deviceController.js
 app.use('/api', routes); //app.use(url по которому обрабатывается роутер, сам роутер)
