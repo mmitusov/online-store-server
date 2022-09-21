@@ -19,7 +19,7 @@ module.exports = function(role) {
                 return res.status(401).json({message: `Token is not found. You're not athorized`})
             }
             const decoded = jwt.verify(token, process.env.SECRET_KEY) //Далее мы должны разкодировать полученный токен (по образу как на сайте по разкодировке JWT). В итоге мы получим объект из которого мы уже сможем выцепить роль
-            if (decoded.role !== role) { //Если декодированная роль не совпадает с ролью, что мы передаем первым параметром в функцию
+            if (decoded.role !== role) { //Если декодированная роль не совпадает с ролью ADMIN (роль которую мы передали первым параметром в текущею функцию)
                 return res.status(403).json({message: `You have no accsess`}) 
             }
             req.user = decoded //К реквесту (например в поле юзер) добавим данные которые мы вытащили. И во всех функциях этот юзер будет доступен
