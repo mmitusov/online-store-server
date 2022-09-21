@@ -1,6 +1,6 @@
 # Backend notes & tips
 **Package description:**
-"express-fileupload" - Simple express middleware for uploading files
+express-fileupload" - Simple express middleware for uploading files
 
 Since DB is going to be complex, before setting up backend APIs, first I need to do is design and implenment DB structure, as well as conect it to our backend. And than build servrside based on its logic. In that case I'll have better understanding of how better to implement APIs later on. Good tool for building visual scemas of future DB is - https://app.diagrams.net.
 
@@ -14,13 +14,17 @@ I was told that Latest version of exressJS now comes with Body-Parser. However w
 
 После создания моделей базы данных, я приступил к написанию функциональных api маршрутов. При чем для того чтобы все держать в чистоте и для разделения логики, я вывел api маршруты из корневого index.js к папке routes. А от нее каждый отдельный маршурт, где и хранится функциональная логика, уже к папке controllers. Именно в этой папке и прописана логика взаимодействия клиента с DB. При чем прописывая логику маршрутов, также паралельно нужно не забывать тестировать их работоспособность, пока код еще не стал слишком комплексным. Заметки по тому как работает каждый контроллер, я добавил в файл самого контроллера.
 
-Далее, для удобства, был создан файл ApiError и middleware для него, чтобы при необходимости нам легче было бы обрабатывать ошибки в любом из других файлов.
+Далее, для удобства, создадим файл ApiError и middleware для него, чтобы при необходимости нам легче было бы обрабатывать ошибки в любом из других файлов.
 
-Для разкодирования готового JWT токена, был создан authMiddleware
+После завершения вышеописаного кода, теперь у нас есть рабочая база данных и api маршруты, по ендпоинтах которых мы можем добавлять/получать бренды девыйсы и их типы из нашей БД.
 
-При работе над аунтефикацией, работоспособность созданого JWT токена можно проверить на [этом ресурсе](https://jwt.io).
+Далее прописываем логику аутентификации в userController. Тут мы будем прописывать логику создания JWT токена для нашего юзера (некий ключ который подтверджает личеость юзера) и логику регистрации/логина. При регестрации и логине создаем новый временный JWT токен.
 
-В итоге был созданн полноценный JWT API. Наш сервер может раздавать статику, мы можем авторизовываться, и добавлять различные товары в нашу БД, хотя можно было бы добавить еще и удаление товаров.
+Валидность токена мы проверяем при помощи check() в userController. Но перед тем как проверить токен на валидность нам сперва нужно его декодировать (кодируется в целях безопасности). Для этого, в userRouter перед тем как запустить функцию проверки "userController.check" по адресу '/auth', мы предварительно используем созданный authMiddleware, чтобы декодировать токен. А уже декодированый результат передаем дальше в "userController.check". Также, при работе над аунтефикацией, работоспособность созданого JWT токена можно проверить на [этом ресурсе](https://jwt.io).
+
+В итоге был созданн полноценный JWT API. Также, наш сервер может раздавать статику, мы можем авторизовываться, и добавлять различные товары в нашу БД, хотя можно было бы добавить еще и удаление товаров.
+
+ P.S. Статические файлы (фото, видео и т.д.) нужно уметь не только помещать на сервер, но и забирать их оттуда при помощи get запроса. И именно express.static() дает на возможность вытаскивать стаатику из сервера и передавать ее юзеру. Именно для этого мы и используем  app.use(express.static(path.resolve(__dirname, 'static'))), в index.js.
 
 ### Choosing Node.js ORM tool for Postgres
 I was choosing between Sequelize and Knex. But since Sequelize is more capble one, it became my choice.
@@ -37,3 +41,8 @@ For a PostgreSQL GUI I was choosing between 'pgAdmin' or 'PSequel' client. 'pgAd
 P.S. For some reason PSequel do not work with latest version of PostgreSQL. So, I'm going to use pgAdmin4 instead.
 
 Also worth mentioning that unlike in pgAdmin3 - in pgAdmin4 you have to manually connect to a running postgres server, since there is no pre-built server skeleton. So, when you enter a DB server for the first time there's gonna be no DB under "Servers" root folder (it's going to be completely empty). Solution on StackOverflow: [Databases in psql Don't Show up in PgAdmin4](https://stackoverflow.com/questions/61576670/databases-in-psql-dont-show-up-in-pgadmin4). 
+
+Немного теории о слоях абстракции (в другой литературе может называться по-другому). Смыст теории заключается в том, чтобы разделять логические куски нашего приложения в отдельные модули. Благодяря этому, мы будем из иметь возможность какой-либо из этих модулей переписать/модифицировать без необходимости при этом затрагивать или модифицировать другие модули. Хочется упоминуть следующие слои (эсть и больше):
+    1. DAL (data access layer) - В нашем случае за этот слой можно принять Sequelize, поскольку все операции к базе данных мы делаем с помощью него. Если бы мы сами описывали SQL запросы, было бы разумно выделить эту логику, по обращению к базе данных, в какой-нибудь отдельный слой.
+    2. Controller. В Controller идёт работа именно клиент-серверной состовляющей (req/res). Это, напроимер, работа с заголовками (headers), параметрами строке запроса (params) или телом запроса (body). После чего из контроллера мы возвращаем ответ на клиент и указываем статус код.
+    3. Service (бизнесс-логика). В сервисе уже непосредственно прописано какая-то логика (никак не связана с req/res). Например, получить данные из базы данных и как-то с ними поработать или что -то высчитакть и т.д. И после всех операций - вернуть (return) результат. А куда мы это возвращаем - уже абсолютно не важно. То есть, если мы, например, решим поменять наш framework с экспресс на что-то другое - мы скорей всего будем переписывать маршруты/контролерры и т.д., но бизнесс-логику при этом нам вообще трогать не нужно. Какой она была такой и остается. 
