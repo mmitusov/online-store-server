@@ -9,6 +9,7 @@ const errorHandler = require('./middleware/errorHandlingMiddleware')
 const path = require('path') //We need it for 'express.static' below
 
 const app = express();
+//Регестрируем установленные модули при помощи midleware, чтобы эти модули работали в рамках нашего приложения
 app.use(cors());
 app.use(express.json()); //Без этого мы не может запарсить инфу с тела запроса: const {name} = req.body!!! Експересс по умолчанию не может преобразовать json формат который мы отправляем в req
 app.use(express.static(path.resolve(__dirname, 'static'))); //Теперь мы можем обращатся по названию ко всем файлам которые лежат в папку static и получать их
