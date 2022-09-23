@@ -1,6 +1,6 @@
 # Backend notes & tips
 **Package description:**
-express-fileupload" - Simple express middleware for uploading files
+express-fileupload" - Simple express middleware for uploading files 
 
 Since DB is going to be complex, before setting up backend APIs, first I need to do is design and implenment DB structure, as well as conect it to our backend. And than build servrside based on its logic. In that case I'll have better understanding of how better to implement APIs later on. Good tool for building visual scemas of future DB is - https://app.diagrams.net.
 
