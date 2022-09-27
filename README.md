@@ -29,6 +29,10 @@ I was told that Latest version of exressJS now comes with Body-Parser. However w
 P.S. Статические файлы (фото, видео и т.д.) нужно уметь не только помещать на сервер, но и забирать их оттуда при помощи get запроса. И именно express.static() дает на возможность вытаскивать стаатику из сервера и передавать ее юзеру. Именно для этого мы и используем  app.use(express.static(path.resolve(__dirname, 'static'))), в index.js.
 
 ### Choosing Node.js ORM tool for Postgres
+ODM / ORM - это некоторая оболочка над нашей БД, которая позволяет не писать запросы в БД напрямую, а пользоваться более удобным синтаксисом для взаимодействия с БД, создавая логику и структуры нашей БД прямиком из Node.JS.
+MySQL is an example of a relational database - you would use an ORM to translate between your objects in code and the relational representation of the data.
+MongoDB is an example of a document database - you would use an ODM to translate between your objects in code and the document representation of the data (if needed).
+
 I was choosing between Sequelize and Knex. But since Sequelize is more capble one, it became my choice.
 **Modules reminder:** if you want to use new import/export syntax for modules don't forget to set `"type": "module"` in the package.json or to use `.mjx` extention.
 
