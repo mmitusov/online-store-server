@@ -1,10 +1,10 @@
-const {Type} = require('../db_models/db_models') //Импортируем модель нашей таблицы
-// const ApiError = require('../error/apiError') - если вдруг решу отлавливать ошибки
+const {Type} = require('../db_models/db_models') 
+
 
 class TypeController {
     async create(req, res) {
         const {name} = req.body
-        const type = await Type.create({name}) //Создаем новую графу в DB по парамертам из запроса
+        const type = await Type.create({name}) 
         return res.json(type)
     }
     async getAll(req, res) {
@@ -14,4 +14,3 @@ class TypeController {
 }
 
 module.exports = new TypeController()
-//Exporting new object created from class above

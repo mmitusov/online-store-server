@@ -1,10 +1,10 @@
-const {Brand} = require('../db_models/db_models') //Импортируем модель нашей таблицы
-// const ApiError = require('../error/apiError') - если вдруг решу отлавливать ошибки
+const {Brand} = require('../db_models/db_models') 
+
 
 class BrandController {
     async create(req, res) {
         const {name} = req.body
-        const brand = await Brand.create({name}) //Создаем новую графу в DB по парамертам из запроса
+        const brand = await Brand.create({name}) 
         return res.json(brand)
     }
     async getAll(req, res) {
@@ -14,4 +14,3 @@ class BrandController {
 }
 
 module.exports = new BrandController()
-//Exporting new object created from class above
