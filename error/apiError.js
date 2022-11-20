@@ -1,4 +1,4 @@
-
+//Let's create error handler
 class ApiError extends Error{
     constructor(status, message) {
         super();
@@ -6,6 +6,7 @@ class ApiError extends Error{
         this.message = message
     }
 
+    //Creating static error functions (we can add here whatever we want)
     static badRequest(message) {
         return new ApiError(404, message)
     }

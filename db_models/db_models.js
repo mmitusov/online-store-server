@@ -80,7 +80,7 @@ DeviceInfo.belongsTo(Device);
 Type.belongsToMany(Brand, {through: TypeBrand});
 Brand.belongsToMany(Type, {through: TypeBrand});
 
-
+//Exporting
 module.exports = {
     User,
     Basket,

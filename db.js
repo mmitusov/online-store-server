@@ -8,4 +8,20 @@ module.exports = new Sequelize(
         port:  process.env.DB_PORT
     }
 );
-lize;
+
+// //If you dont want to use ".env" file, you can just fill everything by hand. 
+// //+You can use classic method of exporting modules
+// /*Also, if you use this method - you don't need nether to configure/create ".env" file 
+// and thus nor 'require('dotenv').config()' in index.js*/
+
+// const {Sequelize} = require('sequelize')
+// const sequelize = new Sequelize(
+//     'postgres', //db_name
+//     'postgres', //user_name
+//     '0000', { //password
+//         dialect: 'postgres',             
+//         host: 'localhost',
+//         port: '5432'
+//     }
+// );
+// module.exports = sequelize;
