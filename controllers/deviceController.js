@@ -31,7 +31,7 @@ class DeviceController {
     }
 
     async getAll(req, res) { //Besides reuesting needed devices, it would be also useful to set of how much devices we can see at once and on which page we're currently at
-        let {brandId, typeId, limit, page} = req.query //If we use 'const' we'll get err: "Assignment to constant variable". So, don't use const where you're plan to changing variables later
+        let {brandId, typeId, page, limit} = req.query //If we use 'const' we'll get err: "Assignment to constant variable". So, don't use const where you're plan to changing variables later
         limit = limit || 9 
         page = page || 1
         let offset = page * limit - limit
@@ -42,13 +42,13 @@ class DeviceController {
             device = await Device.findAndCountAll({limit, offset})
         }
         if (brandId && !typeId) {
-            device = await Device.findAndCountAll({where:{brandId, limit, offset}})
+            device = await Device.findAndCountAll({where:{brandId}, limit, offset})
         }
         if (!brandId && typeId) {
-            device = await Device.findAndCountAll({where:{typeId, limit, offset}})
+            device = await Device.findAndCountAll({where:{typeId}, limit, offset})
         }
         if (brandId && typeId) {
-            device = await Device.findAndCountAll({where:{typeId, brandId, limit, offset}})
+            device = await Device.findAndCountAll({where:{typeId, brandId}, limit, offset})
         }
         return res.json(device)
     }
