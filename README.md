@@ -28,6 +28,10 @@ I was told that Latest version of exressJS now comes with Body-Parser. However w
 
 P.S. Статические файлы (фото, видео и т.д.) нужно уметь не только помещать на сервер, но и забирать их оттуда при помощи get запроса. И именно express.static() дает на возможность вытаскивать стаатику из сервера и передавать ее юзеру. Именно для этого мы и используем  app.use(express.static(path.resolve(__dirname, 'static'))), в index.js.
 
+P.S.S В deviceController.js, был баг который ламал мне фронтенд, потому-что не мог найти и вернуть мне typeId и brandId. Все из-за маленькой опечатки! Вместо {where:{typeId, brandId, limit, offset}}, нужно было написать {where:{typeId, brandId}, limit, offset}. Иначе поиск не работал.
+if (brandId && typeId) {
+            device = await Device.findAndCountAll({where:{typeId, brandId}, limit, offset})
+
 ### Choosing Node.js ORM tool for Postgres
 ODM / ORM - это некоторая оболочка над нашей БД, которая позволяет не писать запросы в БД напрямую, а пользоваться более удобным синтаксисом для взаимодействия с БД, создавая логику и структуры нашей БД прямиком из Node.JS.
 MySQL is an example of a relational database - you would use an ORM to translate between your objects in code and the relational representation of the data.
