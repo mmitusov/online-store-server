@@ -30,7 +30,7 @@ P.S. Статические файлы (фото, видео и т.д.) нужн
 
 P.S.S В deviceController.js, был баг который ламал мне фронтенд, потому-что не мог найти и вернуть мне typeId и brandId. Все из-за маленькой опечатки! Вместо {where:{typeId, brandId, limit, offset}}, нужно было написать {where:{typeId, brandId}, limit, offset}. Иначе поиск не работал.
 if (brandId && typeId) {
-            device = await Device.findAndCountAll({where:{typeId, brandId}, limit, offset}) 
+            device = await Device.findAndCountAll({where:{typeId, brandId}, limit, offset})  
 
 ### Choosing Node.js ORM tool for Postgres
 ODM / ORM - это некоторая оболочка над нашей БД, которая позволяет не писать запросы в БД напрямую, а пользоваться более удобным синтаксисом для взаимодействия с БД, создавая логику и структуры нашей БД прямиком из Node.JS.
